@@ -21,7 +21,15 @@ class Vehiculo{
         return $this->titulo;
     }
 
+    public function getPrecioConIVA(): float{
+        // accede a la constante de la clase con self::
+        return $this->precio + ($this->precio * self::IVA);
+    }
 
-
+    public function muestraResumen():void{
+        echo "<strong>" . $this->titulo . "</strong>";
+        echo "<p>Precio " . $this->getPrecio(). " euros</p>";
+        echo "<p>Precio IVA incluido: " . $this->getPrecioConIVA(). " euros</p>";
+    }
 
 }
