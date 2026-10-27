@@ -50,4 +50,24 @@ class Cliente{
         return true;
     }
 
+    public function devolver(int $numVehiculo): bool{
+        foreach ($this->vehiculosAlquilados as $indice => $vehiculo) {
+            if ($vehiculo->getNumero()===$numVehiculo){
+                unset($this->vehiculosAlquilados[$indice]);
+                echo "<p>El vehículo ha sido devuelto con éxito.</p>";
+                return true;
+            }
+        }
+        echo "<p>El vehículo no estaba alquilado.</p>";
+        return false;
+    }
+
+    public function listaAlquileres():void{
+        echo "<p>Alquileres del cliente: " . count($this->vehiculosAlquilados) . "</p>";
+
+        foreach ($this->vehiculosAlquilados as $vehiculo) {
+            $vehiculo->muestraResumen();
+        }
+    }
+
 }
