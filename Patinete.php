@@ -5,7 +5,7 @@ class Patinete extends Vehiculo {
         int $numero,
         float $precio,
         public int $autonomiaKm,
-        public int $velocidadMaxKmH
+        public int $velocidadMaxKmH = 0
     )
     {
         parent::__construct($titulo, $numero, $precio);
