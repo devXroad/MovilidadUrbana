@@ -55,7 +55,7 @@ class AlquilerMovilidad{
         }
     }
 
-    public function alquilarClienteVehiculo(int $numCliente, int $numVehiculo): void {
+    public function alquilarClienteVehiculo(int $numCliente, int $numVehiculo): self {
         $clienteSeleccionado = null;
         $vehiculoSeleccionado = null;
 
@@ -78,6 +78,7 @@ class AlquilerMovilidad{
         } else {
             echo "<p>Error: No se ha encontrado el cliente o el vehículo especificado.</p>";
         }
+        return $this;
     }
 
 }

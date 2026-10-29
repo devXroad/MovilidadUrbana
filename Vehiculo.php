@@ -1,4 +1,5 @@
 <?php
+include_once "Resumible.php";
 abstract class Vehiculo implements Resumible {
     private const float IVA = 0.21;
     public function __construct(
