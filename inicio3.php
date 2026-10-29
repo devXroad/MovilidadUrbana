@@ -1,6 +1,6 @@
 <?php
 include_once "AlquilerMovilidad.php";
-
+use App\AlquilerMovilidad\AlquilerMovilidad;
 $am = new AlquilerMovilidad("Severo 8A");
 
 //voy a incluir unos cuantos vehículos de prueba

@@ -1,4 +1,6 @@
 <?php
+namespace App\AlquilerMovilidad;
+use App\AlquilerMovilidad\Vehiculo;
 
 class CocheElectrico extends Vehiculo {
     public function __construct(

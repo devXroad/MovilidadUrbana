@@ -1,4 +1,5 @@
 <?php
+namespace App\AlquilerMovilidad;
 class BicicletaElectrica extends Vehiculo {
     public function __construct(
         string $titulo,

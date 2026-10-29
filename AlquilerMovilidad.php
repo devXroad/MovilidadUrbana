@@ -1,4 +1,7 @@
 <?php
+namespace App\AlquilerMovilidad;
+use App\AlquilerMovilidad\Cliente;
+
 include_once "Vehiculo.php";
 include_once "CocheElectrico.php";
 include_once "BicicletaElectrica.php";

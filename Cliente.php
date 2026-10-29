@@ -1,4 +1,5 @@
 <?php
+namespace App\AlquilerMovilidad;
 class Cliente{
     private int $numVehiculosAlquilados = 0;
     private array $vehiculosAlquilados= [];
