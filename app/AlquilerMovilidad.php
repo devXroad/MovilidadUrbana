@@ -2,11 +2,6 @@
 namespace App\AlquilerMovilidad;
 use App\AlquilerMovilidad\Cliente;
 
-include_once "Vehiculo.php";
-include_once "CocheElectrico.php";
-include_once "BicicletaElectrica.php";
-include_once "Patinete.php";
-include_once "Cliente.php";
 class AlquilerMovilidad{
     private array $vehiculos=[];
     private array $socios=[];

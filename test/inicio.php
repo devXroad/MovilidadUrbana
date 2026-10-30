@@ -1,11 +1,14 @@
 <?php
-include "Vehiculo.php";
-include "Patinete.php";
-include "BicicletaElectrica.php";
-include "CocheElectrico.php";
+require_once __DIR__ . '/../vendor/autoload.php';
 
-$vehiculo1 = new Vehiculo("Patinete xiaomi pro 2", 22, 3);
-$vehiculo1->muestraResumen();
+use App\AlquilerMovilidad\Vehiculo;
+use App\AlquilerMovilidad\Patinete;
+use App\AlquilerMovilidad\BicicletaElectrica;
+use App\AlquilerMovilidad\CocheElectrico;
+
+// Vehiculo es abstracta y no se puede instanciar directamente
+// $vehiculo1 = new Vehiculo("Patinete xiaomi pro 2", 22, 3);
+// $vehiculo1->muestraResumen();
 
 $miPatinete = new Patinete("Patinete Xiaomi Mi Electric Pro 2", 23, 3.5, 45, 22);
 $miPatinete->muestraResumen();
