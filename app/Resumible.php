@@ -1,5 +1,5 @@
 <?php
-namespace App\interfaceResumible;
+namespace App\AlquilerMovilidad;
 interface Resumible{
     public function muestraResumen():void;
 

@@ -1,5 +1,9 @@
 <?php
 namespace App\AlquilerMovilidad;
+
+use App\AlquilerMovilidad\Util\VehiculoYaAlquiladoException;
+use App\AlquilerMovilidad\Util\CupoSuperadoException;
+use App\AlquilerMovilidad\Util\VehiculoNoEncontradoException;
 class Cliente{
     private int $numVehiculosAlquilados = 0;
     private array $vehiculosAlquilados= [];
@@ -33,34 +37,31 @@ class Cliente{
         return in_array($vehiculo, $this->vehiculosAlquilados, true); //true para comprobar que sea exactamente el mismo objeto
     }
 
-    public function alquilar(Vehiculo $vehiculo):bool{
-        if($this->tieneAlquilado($vehiculo)){
-            echo "<p>Error: El cliente <strong>{$this->nombre}</strong> ya tiene alquilado este vehículo.</p>";
-            return false;
+    public function alquilar(Vehiculo $vehiculo): self {
+        if ($this->tieneAlquilado($vehiculo)) {
+            throw new VehiculoYaAlquiladoException("El cliente <strong>{$this->nombre}</strong> ya tiene alquilado este vehículo.");
         }
 
-        if (count($this->vehiculosAlquilados) >= $this->maxAlquilerConcurrente){
-            echo "<p>Error: El cliente <strong>{$this->nombre}</strong> ha alcanzado su límite de {$this->maxAlquilerConcurrente} alquileres simultáneos.</p>";
-            return false;
+        if (count($this->vehiculosAlquilados) >= $this->maxAlquilerConcurrente) {
+            throw new CupoSuperadoException("El cliente <strong>{$this->nombre}</strong> ha alcanzado su límite de {$this->maxAlquilerConcurrente} alquileres simultáneos.");
         }
 
         $this->vehiculosAlquilados[] = $vehiculo;
         $this->numVehiculosAlquilados++;
 
         echo "<p>Vehículo alquilado correctamente por <strong>{$this->nombre}</strong>.</p>";
-        return true;
+        return $this;
     }
 
-    public function devolver(int $numVehiculo): bool{
+    public function devolver(int $numVehiculo): self {
         foreach ($this->vehiculosAlquilados as $indice => $vehiculo) {
-            if ($vehiculo->getNumero()===$numVehiculo){
+            if ($vehiculo->getNumero() === $numVehiculo) {
                 unset($this->vehiculosAlquilados[$indice]);
                 echo "<p>El vehículo ha sido devuelto con éxito.</p>";
-                return true;
+                return $this;
             }
         }
-        echo "<p>El vehículo no estaba alquilado.</p>";
-        return false;
+        throw new VehiculoNoEncontradoException("El vehículo {$numVehiculo} no estaba alquilado.");
     }
 
     public function listaAlquileres():void{

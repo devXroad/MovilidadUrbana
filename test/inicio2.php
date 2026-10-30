@@ -5,6 +5,7 @@ use App\AlquilerMovilidad\Cliente;
 use App\AlquilerMovilidad\Patinete;
 use App\AlquilerMovilidad\CocheElectrico;
 use App\AlquilerMovilidad\BicicletaElectrica;
+use App\AlquilerMovilidad\Util\AlquilerMovilidadException;
 
 //instanciamos objetos cliente
 $cliente1 = new Cliente("Bruce Wayne", 23);
@@ -25,17 +26,47 @@ $cliente1->alquilar($v2);
 $cliente1->alquilar($v3);
 
 //intentar alquilar de nuevo un vehículo que ya tiene alquilado
-$cliente1->alquilar($v1);
+try {
+    $cliente1->alquilar($v1);
+} catch (AlquilerMovilidadException $e) {
+    echo "<p>Error: " . $e->getMessage() . "</p>";
+}
+
 //el cliente tiene 3 vehículos en alquiler como máximo
 //este vehículo no lo va a poder alquilar
-$cliente1->alquilar($v4);
+try {
+    $cliente1->alquilar($v4);
+} catch (AlquilerMovilidadException $e) {
+    echo "<p>Error: " . $e->getMessage() . "</p>";
+}
+
 //este vehículo no lo tiene alquilado
-$cliente1->devolver(4);
-//devuelvo un vehículo que sí que tiene alquilado
-$cliente1->devolver(2);
+try {
+    $cliente1->devolver(4);
+} catch (AlquilerMovilidadException $e) {
+    echo "<p>Error: " . $e->getMessage() . "</p>";
+}
+
+//devuelvo un vehículo
+try {
+    $cliente1->devolver(2);
+} catch (AlquilerMovilidadException $e) {
+    echo "<p>Error: " . $e->getMessage() . "</p>";
+}
+
 //alquilo otro vehículo
-$cliente1->alquilar($v4);
+try {
+    $cliente1->alquilar($v4);
+} catch (AlquilerMovilidadException $e) {
+    echo "<p>Error: " . $e->getMessage() . "</p>";
+}
+
 //listar los alquilados
 $cliente1->listaAlquileres();
+
 //este cliente no tiene alquileres
-$cliente2->devolver(2);
+try {
+    $cliente2->devolver(2);
+} catch (AlquilerMovilidadException $e) {
+    echo "<p>Error: " . $e->getMessage() . "</p>";
+}

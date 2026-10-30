@@ -1,7 +1,7 @@
 <?php
 namespace App\AlquilerMovilidad;
 
-use App\interfaceResumible\Resumible;
+use App\AlquilerMovilidad\Resumible;
 abstract class Vehiculo implements Resumible {
     private const float IVA = 0.21;
     public function __construct(
