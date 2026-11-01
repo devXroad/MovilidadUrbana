@@ -7,20 +7,20 @@ class CocheElectrico extends Vehiculo {
         string $titulo,
         int $numero,
         float $precio,
-        public string $marcaModelo,
-        public int $plazasMin,
-        public int $plazasMax
+        private string $marcaModelo,
+        private int $plazasMin,
+        private int $plazasMax
     ) {
         parent::__construct($titulo, $numero, $precio);
     }
 
-    public function muestraInfoPlazas(): void {
+    public function muestraInfoPlazas(): string {
         if ($this->plazasMin === 1 && $this->plazasMax === 1) {
-            echo "<p>Para un pasajero</p>";
+            return "Para un pasajero";
         } elseif ($this->plazasMin === $this->plazasMax) {
-            echo "<p>Para " . $this->plazasMin . " pasajeros</p>";
+            return "Para " . $this->plazasMin . " pasajeros";
         } else {
-            echo "<p>De " . $this->plazasMin . " a " . $this->plazasMax . " pasajeros</p>";
+            return "De " . $this->plazasMin . " a " . $this->plazasMax . " pasajeros";
         }
     }
 
@@ -28,6 +28,6 @@ class CocheElectrico extends Vehiculo {
         parent::muestraResumen();
 
         echo "<p>Marca y modelo: " . $this->marcaModelo . "</p>";
-        $this->muestraInfoPlazas();
+        echo "<p>" . $this->muestraInfoPlazas() . "</p>";
     }
 }

@@ -42,12 +42,17 @@ class Cliente{
             throw new VehiculoYaAlquiladoException("El cliente <strong>{$this->nombre}</strong> ya tiene alquilado este vehículo.");
         }
 
+        if ($vehiculo->alquilado) {
+            throw new VehiculoYaAlquiladoException("El vehículo <strong>{$vehiculo->titulo}</strong> ya está alquilado.");
+        }
+
         if (count($this->vehiculosAlquilados) >= $this->maxAlquilerConcurrente) {
             throw new CupoSuperadoException("El cliente <strong>{$this->nombre}</strong> ha alcanzado su límite de {$this->maxAlquilerConcurrente} alquileres simultáneos.");
         }
 
         $this->vehiculosAlquilados[] = $vehiculo;
         $this->numVehiculosAlquilados++;
+        $vehiculo->alquilado = true;
 
         echo "<p>Vehículo alquilado correctamente por <strong>{$this->nombre}</strong>.</p>";
         return $this;
@@ -56,7 +61,9 @@ class Cliente{
     public function devolver(int $numVehiculo): self {
         foreach ($this->vehiculosAlquilados as $indice => $vehiculo) {
             if ($vehiculo->getNumero() === $numVehiculo) {
+                $vehiculo->alquilado = false;
                 unset($this->vehiculosAlquilados[$indice]);
+                $this->numVehiculosAlquilados--;
                 echo "<p>El vehículo ha sido devuelto con éxito.</p>";
                 return $this;
             }

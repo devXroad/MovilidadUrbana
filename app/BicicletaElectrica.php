@@ -5,8 +5,8 @@ class BicicletaElectrica extends Vehiculo {
         string $titulo,
         int $numero,
         float $precio,
-        public int $marchas,
-        public string $tipo
+        private int $marchas,
+        private string $tipo
     ) {
         parent::__construct($titulo, $numero, $precio);
     }

@@ -4,6 +4,7 @@ namespace App\AlquilerMovilidad;
 use App\AlquilerMovilidad\Resumible;
 abstract class Vehiculo implements Resumible {
     private const float IVA = 0.21;
+    public bool $alquilado = false;
     public function __construct(
         public string $titulo,
         private int $numero,
