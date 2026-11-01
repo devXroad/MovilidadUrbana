@@ -159,7 +159,7 @@ class AlquilerMovilidad {
         return $this;
     }
 
-    public function devolverClienteVehiculo(int $numCliente, int $numVehiculo): self {
+    public function devolverClienteVehiculo(int $numCliente, int $numeroVehiculo): self {
         try {
             $clienteSeleccionado = null;
             $vehiculoSeleccionado = null;
@@ -176,17 +176,17 @@ class AlquilerMovilidad {
             }
 
             foreach ($this->vehiculos as $vehiculo) {
-                if ($vehiculo->getNumero() === $numVehiculo) {
+                if ($vehiculo->getNumero() === $numeroVehiculo) {
                     $vehiculoSeleccionado = $vehiculo;
                     break;
                 }
             }
 
             if ($vehiculoSeleccionado === null) {
-                throw new VehiculoNoEncontradoException("No se ha encontrado el vehículo con identificador: " . $numVehiculo);
+                throw new VehiculoNoEncontradoException("No se ha encontrado el vehículo con identificador: " . $numeroVehiculo);
             }
 
-            $clienteSeleccionado->devolver($numVehiculo);
+            $clienteSeleccionado->devolver($numeroVehiculo);
             $this->numVehiculosAlquilados--;
 
         } catch (AlquilerMovilidadException $e) {
@@ -196,9 +196,9 @@ class AlquilerMovilidad {
         return $this;
     }
 
-    public function devolverClienteVehiculos(int $numCliente, array $numVehiculos): self {
-        foreach ($numVehiculos as $numVehiculo) {
-            $this->devolverClienteVehiculo($numCliente, $numVehiculo);
+    public function devolverClienteVehiculos(int $numCliente, array $numerosVehiculos): self {
+        foreach ($numerosVehiculos as $numeroVehiculo) {
+            $this->devolverClienteVehiculo($numCliente, $numeroVehiculo);
         }
         return $this;
     }

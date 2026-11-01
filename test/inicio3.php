@@ -24,3 +24,13 @@ alquilarClienteVehiculo(1,2)->alquilarClienteVehiculo(1,6);
 
 //listar los socios
 $am->listarSocios();
+
+//devolucion encadenada,  alquiler multiple y comprobacion de contadores
+$am->devolverClienteVehiculo(1, 2)->devolverClienteVehiculos(1, [3, 6]);
+
+$am->alquilarClienteVehiculos(2, [1, 4]);
+
+$am->listarClientes();
+
+echo "<p>Vehículos alquilados activos: " . $am->getNumVehiculosAlquilados() . "</p>";
+echo "<p>Total histórico de alquileres: " . $am->getNumTotalAlquileres() . "</p>";
