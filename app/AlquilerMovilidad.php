@@ -5,6 +5,8 @@ use App\AlquilerMovilidad\Cliente;
 use App\AlquilerMovilidad\Util\AlquilerMovilidadException;
 use App\AlquilerMovilidad\Util\ClienteNoEncontradoException;
 use App\AlquilerMovilidad\Util\VehiculoNoEncontradoException;
+use App\AlquilerMovilidad\Util\VehiculoYaAlquiladoException;
+use App\AlquilerMovilidad\Util\CupoSuperadoException;
 
 class AlquilerMovilidad {
     private array $vehiculos = [];
@@ -109,10 +111,51 @@ class AlquilerMovilidad {
         return $this;
     }
 
-    public function alquilarClienteVehiculos(int $numCliente, array $numVehiculos): self {
-        foreach ($numVehiculos as $numVehiculo) {
-            $this->alquilarClienteVehiculo($numCliente, $numVehiculo);
+    public function alquilarClienteVehiculos(int $numCliente, array $numerosVehiculos): self {
+        try {
+            $clienteSeleccionado = null;
+            foreach ($this->clientes as $cliente) {
+                if ($cliente->getNumero() === $numCliente) {
+                    $clienteSeleccionado = $cliente;
+                    break;
+                }
+            }
+
+            if ($clienteSeleccionado === null) {
+                throw new ClienteNoEncontradoException("No se ha encontrado el cliente con identificador: " . $numCliente);
+            }
+
+            $vehiculosAAlquilar = [];
+            foreach ($numerosVehiculos as $numVehiculo) {
+                $vehiculoEncontrado = null;
+                foreach ($this->vehiculos as $vehiculo) {
+                    if ($vehiculo->getNumero() === $numVehiculo) {
+                        $vehiculoEncontrado = $vehiculo;
+                        break;
+                    }
+                }
+
+                if ($vehiculoEncontrado === null) {
+                    throw new VehiculoNoEncontradoException("No se ha encontrado el vehículo con identificador: " . $numVehiculo);
+                }
+
+                if ($vehiculoEncontrado->alquilado || $clienteSeleccionado->tieneAlquilado($vehiculoEncontrado)) {
+                    throw new VehiculoYaAlquiladoException("El vehículo {$vehiculoEncontrado->titulo} ya está alquilado.");
+                }
+
+                $vehiculosAAlquilar[] = $vehiculoEncontrado;
+            }
+
+            foreach ($vehiculosAAlquilar as $vehiculo) {
+                $clienteSeleccionado->alquilar($vehiculo);
+                $this->numVehiculosAlquilados++;
+                $this->numTotalAlquileres++;
+            }
+
+        } catch (AlquilerMovilidadException $e) {
+            echo "<p>Error: " . $e->getMessage() . "</p>";
         }
+
         return $this;
     }
 
